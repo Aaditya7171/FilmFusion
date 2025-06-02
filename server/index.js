@@ -60,15 +60,26 @@ app.use('*', (req, res) => {
 // Initialize database and start server
 const startServer = async () => {
   try {
+    console.log('🔄 Starting FilmFusion server...');
+    console.log('📊 Environment variables check:');
+    console.log('- NODE_ENV:', process.env.NODE_ENV);
+    console.log('- PORT:', PORT);
+    console.log('- DATABASE_URL:', process.env.DATABASE_URL ? 'Set' : 'Missing');
+    console.log('- JWT_SECRET:', process.env.JWT_SECRET ? 'Set' : 'Missing');
+
+    console.log('🔄 Initializing database...');
     await initializeDatabase();
-    
-    app.listen(PORT, () => {
+    console.log('✅ Database initialized successfully');
+
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`🚀 FilmFusion server running on port ${PORT}`);
       console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-      console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+      console.log(`📊 Health check: http://0.0.0.0:${PORT}/api/health`);
     });
   } catch (error) {
-    console.error('Failed to start server:', error);
+    console.error('❌ Failed to start server:', error);
+    console.error('Error details:', error.message);
+    console.error('Stack trace:', error.stack);
     process.exit(1);
   }
 };
