@@ -3,10 +3,7 @@
   "version": "1.0.0",
   "description": "FilmFusion - Movie Discovery Platform",
   "scripts": {
-    "build": "cd client && npm install && npm run build",
-    "start": "cd client && npm start",
-    "install-client": "cd client && npm install",
-    "install-server": "cd server && npm install"
+    "vercel-build": "cd client && npm install && npm run build"
   },
   "keywords": ["react", "movies", "entertainment"],
   "author": "Aaditya",
