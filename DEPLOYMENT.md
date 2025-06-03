@@ -29,31 +29,37 @@
    - Railway will automatically provision PostgreSQL
    - Database schema will be initialized on first run
 
-### Frontend Deployment (Vercel)
+### Frontend Deployment (Netlify)
 
-1. **Create Vercel Account**: Sign up at [vercel.com](https://vercel.com)
+1. **Create Netlify Account**: Sign up at [netlify.com](https://netlify.com)
 
 2. **Deploy Frontend**:
-   - Import your GitHub repository
-   - Set root directory to `client`
-   - Vercel will auto-detect React and deploy
+   - Connect your GitHub repository to Netlify
+   - Set build command: `npm run build`
+   - Set publish directory: `build`
+   - Netlify will auto-detect React and deploy
 
-3. **Environment Variables** (Set in Vercel Dashboard):
+3. **Environment Variables** (Set in Netlify Dashboard):
    ```
-   REACT_APP_API_BASE_URL=https://your-railway-app.railway.app/api
+   REACT_APP_API_BASE_URL=https://artistic-sparkle-production.up.railway.app/api
    REACT_APP_GOOGLE_CLIENT_ID=1059821168279-l3f82nmslol1brmlr9co2l4gph4rk3oe.apps.googleusercontent.com
    REACT_APP_TMDB_IMAGE_BASE_URL=https://image.tmdb.org/t/p
    GENERATE_SOURCEMAP=false
    ```
 
+4. **Netlify Configuration**:
+   - The `netlify.toml` file is already configured for optimal deployment
+   - Includes SPA routing redirects and security headers
+
 ### Post-Deployment Configuration
 
 1. **Update CORS Origins**:
-   - Add your Vercel domain to Railway's CORS_ORIGIN environment variable
+   - Add your Netlify domain to Railway's CORS_ORIGIN environment variable
+   - Example: `https://your-app-name.netlify.app`
 
 2. **Update Google OAuth**:
-   - Add your Vercel domain to Google OAuth authorized origins
-   - Add your Vercel domain to authorized redirect URIs
+   - Add your Netlify domain to Google OAuth authorized origins
+   - Add your Netlify domain to authorized redirect URIs
 
 3. **Test Deployment**:
    - Verify health check: `https://your-railway-app.railway.app/api/health`
