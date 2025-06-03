@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -11,14 +11,14 @@ const NewHome = () => {
   const [categoryContent, setCategoryContent] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const categories = [
+  const categories = useMemo(() => [
     { key: 'bollywood', name: 'Bollywood', emoji: '🇮🇳', color: '#FF6B35' },
     { key: 'hollywood', name: 'Hollywood', emoji: '🇺🇸', color: '#FFD700' },
     { key: 'k_drama', name: 'K-Drama', emoji: '🇰🇷', color: '#FF69B4' },
     { key: 'web_series', name: 'Web Series', emoji: '📺', color: '#00CED1' },
     { key: 'anime', name: 'Anime', emoji: '🇯🇵', color: '#FF1493' },
     { key: 'south', name: 'South Indian', emoji: '🌴', color: '#32CD32' }
-  ];
+  ], []);
 
   const fetchCategoryContent = useCallback(async () => {
     try {
