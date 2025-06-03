@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "npm install",
+    "build": "npm cache clean --force && npm install --production --no-cache",
+    "postinstall": "echo 'Dependencies installed successfully'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {

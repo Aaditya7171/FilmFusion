@@ -1,4 +1,4 @@
-const cacheService = require('../services/cache');
+ const cacheService = require('../services/cache');
 
 // Generic cache middleware
 const cacheMiddleware = (keyGenerator, ttl) => {
