@@ -182,7 +182,7 @@ export const syncWithLocalStorage = () => {
   }
 };
 
-export default {
+const cookieUtils = {
   getAuthToken,
   setAuthToken,
   removeAuthToken,
@@ -198,3 +198,5 @@ export default {
   syncWithLocalStorage,
   COOKIE_NAMES
 };
+
+export default cookieUtils;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -20,31 +20,31 @@ const NewHome = () => {
     { key: 'south', name: 'South Indian', emoji: '🌴', color: '#32CD32' }
   ];
 
-  const fetchCategoryContent = async () => {
+  const fetchCategoryContent = useCallback(async () => {
     try {
       setLoading(true);
-      const promises = categories.map(category => 
+      const promises = categories.map(category =>
         contentAPI.getByCategory(category.key, 1)
       );
-      
+
       const responses = await Promise.all(promises);
-      
+
       const contentByCategory = {};
       categories.forEach((category, index) => {
         contentByCategory[category.key] = responses[index].data.results.slice(0, 10);
       });
-      
+
       setCategoryContent(contentByCategory);
     } catch (error) {
       console.error('Error fetching category content:', error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [categories]);
 
   useEffect(() => {
     fetchCategoryContent();
-  }, []);
+  }, [fetchCategoryContent]);
 
   if (loading) {
     return <HomeSkeleton />;

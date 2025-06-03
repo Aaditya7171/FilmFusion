@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authAPI } from '../services/api';
 import {
   getAuthToken,
@@ -45,6 +45,24 @@ export const AuthProvider = ({ children }) => {
     initializeCookies();
   }, []);
 
+  const logout = useCallback(async () => {
+    try {
+      // Call server logout endpoint to clear HTTP-only cookies
+      await authAPI.logout();
+    } catch (error) {
+      console.warn('Server logout failed:', error);
+    }
+
+    setUser(null);
+    setToken(null);
+
+    // Clear both cookies and localStorage
+    if (cookiesEnabled) {
+      removeAuthToken();
+    }
+    localStorage.removeItem('filmfusion-token');
+  }, [cookiesEnabled]);
+
   useEffect(() => {
     const validateToken = async () => {
       try {
@@ -77,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, logout]);
 
 
 
@@ -90,24 +108,6 @@ export const AuthProvider = ({ children }) => {
       setAuthToken(authToken);
     }
     localStorage.setItem('filmfusion-token', authToken);
-  };
-
-  const logout = async () => {
-    try {
-      // Call server logout endpoint to clear HTTP-only cookies
-      await authAPI.logout();
-    } catch (error) {
-      console.warn('Server logout failed:', error);
-    }
-
-    setUser(null);
-    setToken(null);
-
-    // Clear both cookies and localStorage
-    if (cookiesEnabled) {
-      removeAuthToken();
-    }
-    localStorage.removeItem('filmfusion-token');
   };
 
   const value = {

@@ -3,7 +3,7 @@
   command = "npm ci && npm run build"
 
   # Directory to publish (contains the production build)
-  publish = "client/build"
+  publish = "build"
 
   # Base directory for the build (where package.json is located)
   base = "client"
@@ -17,6 +17,9 @@
 
   # CI environment
   CI = "true"
+
+  # Treat warnings as warnings, not errors
+  CI_TREAT_WARNINGS_AS_ERRORS = "false"
 
 # Redirect rules for React Router (SPA)
 [[redirects]]
