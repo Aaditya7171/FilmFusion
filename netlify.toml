@@ -3,10 +3,10 @@
   command = "npm ci && npm run build"
 
   # Directory to publish (contains the production build)
-  publish = "build"
+  publish = "client/build"
 
-  # Base directory for the build
-  base = "."
+  # Base directory for the build (where package.json is located)
+  base = "client"
 
 [build.environment]
   # Node.js version
