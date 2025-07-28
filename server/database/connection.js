@@ -1,10 +1,13 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-// Use public URL for external connections, internal URL for Railway deployment
-const connectionString = process.env.NODE_ENV === 'production' 
-  ? process.env.DATABASE_URL 
-  : process.env.DATABASE_PUBLIC_URL;
+// Use DATABASE_URL for all environments (NeonDB works the same way for both)
+const connectionString = process.env.DATABASE_URL;
+
+if (!connectionString) {
+  console.error('❌ DATABASE_URL environment variable is not set');
+  process.exit(1);
+}
 
 const pool = new Pool({
   connectionString,
